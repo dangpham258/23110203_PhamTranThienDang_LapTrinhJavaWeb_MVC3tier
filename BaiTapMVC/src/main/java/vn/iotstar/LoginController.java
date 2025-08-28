@@ -10,10 +10,10 @@ import jakarta.servlet.http.HttpSession;
 import vn.iotstar.models.User;
 import vn.iotstar.userService.UserService;
 import vn.iotstar.util.Constant;
+import vn.iotstar.userService.impl.UserServiceImpl;
 
 import java.io.IOException;
 
-import UserServiceImpl.UserServiceImpl;
 
 /**
  * Servlet implementation class LoginController
@@ -37,7 +37,6 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		resp.getWriter().append("Served at: ").append(req.getContextPath());
 		HttpSession session = req.getSession(false);
 		if (session != null && session.getAttribute("account") != null) {
 			resp.sendRedirect(req.getContextPath() + "/waiting");
@@ -56,7 +55,7 @@ public class LoginController extends HttpServlet {
 				}
 			}
 		}
-		req.getRequestDispatcher("views/login.jsp").forward(req, resp);
+		req.getRequestDispatcher("/login.jsp").forward(req, resp);
 	}
 
 	/**
@@ -65,8 +64,6 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(req, resp);
-
 		resp.setContentType("text/html");
 		resp.setCharacterEncoding("UTF-8");
 		req.setCharacterEncoding("UTF-8");
@@ -83,7 +80,7 @@ public class LoginController extends HttpServlet {
 		if (username.isEmpty() || password.isEmpty()) {
 			alertMsg = "Tài khoản hoặc mật khẩu không được rỗng";
 			req.setAttribute("alert", alertMsg);
-			req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
+			req.getRequestDispatcher("/login.jsp").forward(req, resp);
 			return;
 		}
 		UserService service = new UserServiceImpl();
@@ -98,7 +95,7 @@ public class LoginController extends HttpServlet {
 		} else {
 			alertMsg = "Tài khoản hoặc mật khẩu không đúng";
 			req.setAttribute("alert", alertMsg);
-			req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
+			req.getRequestDispatcher("/login.jsp").forward(req, resp);
 		}
 	}
 

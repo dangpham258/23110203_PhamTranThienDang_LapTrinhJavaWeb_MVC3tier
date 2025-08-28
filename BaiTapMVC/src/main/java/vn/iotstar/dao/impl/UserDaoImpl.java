@@ -16,7 +16,7 @@ public class UserDaoImpl implements UserDAO {
 	public ResultSet rs = null;
 	@Override
 	public User get(String username) {
-		String sql = "SELECT * FROM [User] WHERE username = ? ";
+		String sql = "SELECT * FROM [User] WHERE userName = ? ";
 		try {
 			conn = new DBConnection().getConnection();
 			ps = conn.prepareStatement(sql);
@@ -26,9 +26,9 @@ public class UserDaoImpl implements UserDAO {
 				User user = new User();
 				user.setId(rs.getInt("id"));
 				user.setEmail(rs.getString("email"));
-				user.setUserName(rs.getString("username"));
-				user.setFullName(rs.getString("fullname"));
-				user.setPassWord(rs.getString("password"));
+				user.setUserName(rs.getString("userName"));
+				user.setFullName(rs.getString("fullName"));
+				user.setPassWord(rs.getString("passWord"));
 				user.setAvatar(rs.getString("avatar"));
 				user.setRoleid(Integer.parseInt(rs.getString("roleid")));
 				user.setPhone(rs.getString("phone"));

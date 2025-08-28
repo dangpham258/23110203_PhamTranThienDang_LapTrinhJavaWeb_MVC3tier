@@ -23,7 +23,7 @@
 
             <div class="form-remember">
                 <label>
-                    <input type="checkbox" name="remember" value="true"> Nhớ tôi
+                    <input type="checkbox" name="remember" value="on"> Nhớ tôi
                 </label>
             </div>
 
