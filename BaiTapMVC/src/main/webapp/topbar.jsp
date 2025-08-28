@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Login/Register</title>
 </head>
 <body>
 	<c:choose>

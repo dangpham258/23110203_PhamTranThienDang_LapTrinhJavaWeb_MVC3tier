@@ -1,7 +1,6 @@
 package vn.iotstar.dao.impl;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -14,6 +13,7 @@ public class UserDaoImpl implements UserDAO {
 	public Connection conn = null;
 	public PreparedStatement ps = null;
 	public ResultSet rs = null;
+
 	@Override
 	public User get(String username) {
 		String sql = "SELECT * FROM [User] WHERE userName = ? ";
@@ -40,5 +40,83 @@ public class UserDaoImpl implements UserDAO {
 		}
 
 		return null;
+	}
+
+	@Override
+	public void insert(User user) {
+		String sql = "INSERT INTO [User](email, userName, fullName, passWord, avatar, roleid, phone, createdDate) VALUES (?,?,?,?,?,?,?,?)";
+		try {
+			conn = new DBConnection().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, user.getEmail());
+			ps.setString(2, user.getUserName());
+			ps.setString(3, user.getFullName());
+			ps.setString(4, user.getPassWord());
+			ps.setString(5, user.getAvatar());
+			ps.setInt(6, user.getRoleid());
+			ps.setString(7, user.getPhone());
+			ps.setDate(8, user.getCreatedDate());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public boolean checkExistEmail(String email) {
+		boolean duplicate = false;
+		String query = "select * from [User] where email = ?";
+		try {
+			conn = new DBConnection().getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, email);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				duplicate = true;
+			}
+			ps.close();
+			conn.close();
+		} catch (Exception ex) {
+		}
+		return duplicate;
+	}
+
+	@Override
+	public boolean checkExistUsername(String username) {
+		boolean duplicate = false;
+		String query = "select * from [User] where userName = ?";
+		try {
+			conn = new DBConnection().getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, username);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				duplicate = true;
+			}
+			ps.close();
+			conn.close();
+		} catch (Exception ex) {
+		}
+		return duplicate;
+	}
+
+	@Override
+	public boolean checkExistPhone(String phone) {
+		boolean duplicate = false;
+	    String query = "SELECT * FROM [User] WHERE phone = ?";
+	    try {
+	        conn = new DBConnection().getConnection();
+	        ps = conn.prepareStatement(query);
+	        ps.setString(1, phone);
+	        rs = ps.executeQuery();
+	        if (rs.next()) {
+	            duplicate = true;
+	        }
+	        ps.close();
+	        conn.close();
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+	    }
+	    return duplicate;
 	}
 }
