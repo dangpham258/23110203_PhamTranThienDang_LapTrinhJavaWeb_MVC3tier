@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean register(String email, String password, String username, String fullname, String phone) {
+	public boolean register(String username, String password, String email, String fullname, String phone) {
 		if (userDao.checkExistUsername(username)) {
 			return false;
 		}
@@ -51,6 +51,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean checkExistPhone(String phone) {
 		return userDao.checkExistPhone(phone);
+	}
+	
+	@Override
+	public boolean updatePassword(String username, String newPassword) {
+	    return userDao.updatePassword(username, newPassword);
+	}
+
+	@Override
+	public User getByUsernameAndEmail(String username, String email) {
+	    return userDao.getByUsernameAndEmail(username, email);
 	}
 
 }

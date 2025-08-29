@@ -119,4 +119,41 @@ public class UserDaoImpl implements UserDAO {
 	    }
 	    return duplicate;
 	}
+	
+	@Override
+	public boolean updatePassword(String username, String newPassword) {
+	    String sql = "UPDATE [User] SET passWord = ? WHERE userName = ?";
+	    try {
+	        conn = new DBConnection().getConnection();
+	        ps = conn.prepareStatement(sql);
+	        ps.setString(1, newPassword); // TODO: nếu dùng hash, thay bằng mật khẩu đã hash
+	        ps.setString(2, username);
+	        return ps.executeUpdate() > 0;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
+	@Override
+	public User getByUsernameAndEmail(String username, String email) {
+	    String sql = "SELECT * FROM [User] WHERE userName = ? AND email = ?";
+	    try {
+	        conn = new DBConnection().getConnection();
+	        ps = conn.prepareStatement(sql);
+	        ps.setString(1, username);
+	        ps.setString(2, email);
+	        rs = ps.executeQuery();
+	        if (rs.next()) {
+	            User u = new User();
+	            u.setUserName(rs.getString("userName"));
+	            u.setEmail(rs.getString("email"));
+	            u.setPassWord(rs.getString("passWord"));
+	            u.setFullName(rs.getString("fullName"));
+	            return u;
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return null;
+	}
 }

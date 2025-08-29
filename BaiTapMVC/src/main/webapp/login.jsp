@@ -26,8 +26,11 @@
                     <input type="checkbox" name="remember" value="on"> Nhớ tôi
                 </label>
             </div>
-
+			
+			<p><a href="${pageContext.request.contextPath}/forgot">Quên mật khẩu?</a></p>
+			
             <input type="submit" value="Đăng nhập">
+            
         </form>
     </div>
 </body>
