@@ -8,9 +8,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import vn.iotstar.models.User;
-import vn.iotstar.userService.UserService;
+import vn.iotstar.service.UserService;
 import vn.iotstar.util.Constant;
-import vn.iotstar.userService.impl.UserServiceImpl;
+import vn.iotstar.service.impl.UserServiceImpl;
 
 import java.io.IOException;
 
